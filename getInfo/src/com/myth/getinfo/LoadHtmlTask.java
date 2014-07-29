@@ -1,6 +1,7 @@
 package com.myth.getinfo;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,7 +16,7 @@ import android.util.Log;
 public class LoadHtmlTask extends AsyncTask<String, String, String>
 {
 
-    // Òì²½»ñÈ¡ÐÅÏ¢
+    // ï¿½ì²½ï¿½ï¿½È¡ï¿½ï¿½Ï¢
 
     ProgressDialog bar;
 
@@ -23,9 +24,13 @@ public class LoadHtmlTask extends AsyncTask<String, String, String>
 
     private Context context;
 
-    public LoadHtmlTask(Context context)
+    private Map<String, String> map;
+
+    public LoadHtmlTask(Context context, Map map)
     {
         this.context = context;
+        this.map = map;
+
     }
 
     @Override
@@ -41,8 +46,9 @@ public class LoadHtmlTask extends AsyncTask<String, String, String>
             {
                 String title = links.getElementsByTag("a").text();
 
-                String link = links.select("a").attr("href").replace("/", "").trim();
+                String link = links.select("a").attr("href").trim();
                 Log.d("element", title + ":" + link);
+                map.put(title, link);
             }
 
         }
@@ -73,7 +79,7 @@ public class LoadHtmlTask extends AsyncTask<String, String, String>
         super.onPreExecute();
 
         bar = new ProgressDialog(context);
-        bar.setMessage("ÕýÔÚ¼ÓÔØÊý¾Ý¡¤¡¤¡¤¡¤");
+        bar.setMessage("ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½Ý¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
         bar.setIndeterminate(false);
         bar.setCancelable(false);
         bar.show();

@@ -1,12 +1,13 @@
 package com.myth.getinfo;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
 
-import com.example.getinfo.R;
-
-public class MainActivity extends Activity
+public class MainActivity extends Activity implements OnClickListener
 {
 
     @Override
@@ -14,8 +15,8 @@ public class MainActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        findViewById(R.id.tv_zhihu).setOnClickListener(this);
 
-        new LoadHtmlTask(MainActivity.this).execute("http://www.zhihu.com/explore");
     }
 
     @Override
@@ -27,4 +28,10 @@ public class MainActivity extends Activity
         return true;
     }
 
+    @Override
+    public void onClick(View v)
+    {
+        startActivity(new Intent(MainActivity.this, NoteListActivity.class));
+
+    }
 }
